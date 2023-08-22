@@ -11,3 +11,5 @@ function fabnociseries(n) {
 }
 
 console.log(fabnociseries(8));
+
+("new version of detached-head");
