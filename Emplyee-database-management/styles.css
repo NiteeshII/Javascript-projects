@@ -135,6 +135,12 @@ h1 {
   background-color: var(--item-bg);
 }
 
+.Add-Employee-create > h1 {
+  font-size: 20px;
+  font-weight: normal;
+  font-family: sans-serif;
+}
+
 .Add-Employee-create > div {
   display: grid;
   grid-template-columns: 48.1% 48.1%;
@@ -147,12 +153,14 @@ h1 {
   border: 1px solid rgb(236, 236, 236);
 }
 
-.Add-Employee-create--submit {
+.Add-Employee-create--submit,
+.Edit-Employee--submit {
   padding: 10px !important;
   background-color: var(--btn);
   cursor: pointer;
 }
 
-.Add-Employee-create--submit:hover {
+.Add-Employee-create--submit,
+.Edit-Employee--submit:hover {
   background-color: var(--btn-hover);
 }

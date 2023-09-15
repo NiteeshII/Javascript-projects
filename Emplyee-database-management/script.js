@@ -5,29 +5,28 @@ const addEmployeeContainer = document.querySelector(".Add-Employee-container");
 const addEmployeeForm = document.querySelector(".Add-Employee-create");
 const employees = document.querySelector(".Employees_names");
 const employeeSingle = document.querySelector(".Employees_single");
+const Editemployeebtn = document.querySelector(".Edit-Employee");
+const modalHeading = document.querySelector(".modal-heading");
 
 (async function () {
   const response = await fetch("data.json");
   const data = await response.json();
   let employeedata = data;
-  console.log(employeedata);
   let selectedEmployeeId = employeedata[0].id;
   let selectedEmployee = employeedata[0];
-
   employeeList.addEventListener("click", getEmployeeInfo);
 
   function getEmployeeInfo(e) {
     if (e.target.tagName === "SPAN" && selectedEmployeeId !== e.target.id) {
       selectedEmployeeId = e.target.id;
-      const elementsSelected = [...employeedata];
-      const selected = elementsSelected.find((item) => {
-        console.log(selectedEmployeeId);
-        return item.id === +selectedEmployeeId;
-      });
-      selectedEmployee = selected;
+      //   const elementsSelected = [...employeedata];
+      //   const selected = elementsSelected.find((item) => {
+      //     console.log(selectedEmployeeId);
+      //     return item.id === +selectedEmployeeId;
+      //   });
+      //   selectedEmployee = selected;
       renderEmployees();
       renderEmployeeInfo();
-      console.log(selectedEmployeeId, selected);
     }
 
     if (e.target.tagName === "I") {
@@ -61,7 +60,7 @@ const employeeSingle = document.querySelector(".Employees_single");
       employeeName.classList.add("Employees_names--item");
       if (parseInt(selectedEmployeeId, 10) === element.id) {
         employeeName.classList.add("selected");
-        // selectedEmployee = element;
+        selectedEmployee = element;
       }
       employeeName.setAttribute("id", element.id);
       employeeName.innerHTML = `${element.firstName} ${element.lastName} <i className="employeeDelete">❌</i>`;
@@ -88,6 +87,8 @@ const employeeSingle = document.querySelector(".Employees_single");
 
   addEmployeebtn.addEventListener("click", () => {
     addEmployeeContainer.style.display = "flex";
+    addEmployeeForm.reset();
+    modalHeading.innerHTML = "Add a new Employee";
   });
 
   addEmployeeContainer.addEventListener("click", (e) => {
@@ -98,10 +99,28 @@ const employeeSingle = document.querySelector(".Employees_single");
 
   addEmployeeForm.addEventListener("submit", (e) => {
     e.preventDefault();
+
+    if (modalHeading.innerHTML === "Edit Employee") {
+      const formData = new FormData(addEmployeeForm);
+      const values = [...formData.entries()];
+      let empData = {};
+      values.forEach((value) => {
+        empData[value[0]] = value[1];
+      });
+      const copySelectedobj = { ...selectedEmployee };
+      const returnedobject = Object.assign(copySelectedobj, empData);
+      const requiredIndex = employeedata.findIndex(
+        (item) => item.id === returnedobject.id
+      );
+      employeedata.splice(requiredIndex, 1, returnedobject);
+      renderEmployees();
+      renderEmployeeInfo();
+      addEmployeeContainer.style.display = "none";
+      return;
+    }
     const formData = new FormData(addEmployeeForm);
     const values = [...formData.entries()];
     let empData = {};
-    console.log(values);
     values.forEach((value) => {
       empData[value[0]] = value[1];
     });
@@ -115,6 +134,31 @@ const employeeSingle = document.querySelector(".Employees_single");
     renderEmployees();
     addEmployeeForm.reset();
     addEmployeeContainer.style.display = "none";
+  });
+
+  // Edit Employee conditions
+
+  Editemployeebtn.addEventListener("click", () => {
+    addEmployeeContainer.style.display = "flex";
+    modalHeading.innerText = "Edit Employee";
+    document.querySelector('input[name = "firstName"]').value =
+      selectedEmployee.firstName;
+    document.querySelector('input[name = "lastName"]').value =
+      selectedEmployee.lastName;
+    document.querySelector('input[name = "imageUrl"]').value =
+      selectedEmployee.imageUrl;
+    document.querySelector('input[name = "email"]').value =
+      selectedEmployee.email;
+    document.querySelector('input[name = "contactNumber"]').value =
+      selectedEmployee.contactNumber;
+    document.querySelector('input[name = "salary"]').value =
+      selectedEmployee.salary;
+    document.querySelector('input[name = "address"]').value =
+      selectedEmployee.address;
+    document.querySelector('input[name = "dob"]').value = selectedEmployee.dob
+      .split("/")
+      .reverse()
+      .join("-");
   });
 
   if (selectedEmployee) renderEmployeeInfo(selectedEmployee);
