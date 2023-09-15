@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="styles.css" rel="stylesheet" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header class="header">
+      <h1>Employee Database Management</h1>
+      <button class="Edit-Employee">Edit employee</button>
+      <button class="add-Employee">Add Employee</button>
+    </header>
+    <div class="Employee">
+      <div class="Employees_names">
+        <span class="Employees_names--title">Employees List</span>
+        <div class="Employees_names--list" id="Employees_names--list"></div>
+      </div>
+      <div class="Employees_single">
+        <div class="Employees_single--title">Employees information</div>
+        <div class="Employees_single--info" id="Employees_single--info"></div>
+      </div>
+    </div>
+
+    <div class="Add-Employee-container">
+      <form class="Add-Employee-create">
+        Add a new Employee
+        <div>
+          <input type="text" name="firstName" placeholder="first-name" />
+          <input type="text" name="lastName" placeholder="last-name" />
+        </div>
+        <input type="text" name="imageUrl" placeholder="Image URL(Optional)" />
+        <input type="email" name="email" placeholder="Email" />
+        <input type="number" name="contactnumber" placeholder="Contact" />
+        <input type="number" name="salary" placeholder="salary" />
+        <input type="text" name="address" placeholder="address" />
+        <input
+          type="date"
+          name="dob"
+          placeholder="Date of Birth"
+          class="Add-Employee-create--dob"
+        />
+        <input
+          type="submit"
+          class="Add-Employee-create--submit"
+          value="Submit"
+        />
+      </form>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
