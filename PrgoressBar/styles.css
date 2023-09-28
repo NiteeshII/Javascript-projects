@@ -1,0 +1,46 @@
+html {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: auto;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.ProgressBar-Container {
+  width: 60%;
+  padding: 0.2rem 0.3rem;
+  background-color: #cccc;
+  border-radius: 50px;
+  height: 20px;
+}
+.progress-Bar {
+  padding: 0.5rem 0;
+  border: 1px solid grey;
+  border-radius: 50px;
+  background-color: #0073e6;
+  /* animation-duration: 3s;
+  animation-timing-function: ease-in-out; */
+  animation: none;
+}
+
+.Progress-Run {
+  padding: 0.5rem 1rem;
+  color: blue;
+  cursor: pointer;
+}
+
+@keyframes fillProgress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
